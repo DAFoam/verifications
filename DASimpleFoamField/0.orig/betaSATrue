@@ -11,20 +11,19 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      nut;
+    object      betaSA;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform 4.5E-5;
+internalField   uniform 1.0;
 
 boundaryField
 {
     "(wing.*)"
     {
-        type            nutUSpaldingWallFunctionDF;
-        value           $internalField;
+        type            zeroGradient;
     }
     symmetry1
     {
@@ -36,10 +35,8 @@ boundaryField
     }
     inout
     {
-        type            calculated;
-        value           $internalField;
+        type            zeroGradient;
     }
-
 }
 
 
