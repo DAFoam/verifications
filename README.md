@@ -1,6 +1,6 @@
 # verifications
 
-This repo contains configuration files to verify the accuracy of DAFoam adjoint derivative computation.
+This repo contains configuration files to verify the accuracy of DAFoam adjoint derivative computation. Here we compared the derivatives between the forward mode AD (reference)and the JacobianFree adjoint method.
 
 Before running, we need to generate the mesh by running:
 
@@ -20,9 +20,7 @@ To compute the reference derivatives using the forward mode AD for a specific de
 mpirun -np 4 python runScript.py --task=runForwardAD --dvName="shape" --seedIndex=0
 </pre>
 
-The above command will run the primal solver with the forward mode AD, and print out the derivative for the 0th "shape" design variable to the screen at the end of the computation. One can follow a similar syntax for other design variables and indices.
+The above command will run the primal solver with the forward mode AD, and print out the derivative for the 0th "shape" design variable to the screen during the computation. One can follow a similar syntax for other design variables and indices.
 
-**NOTE**: If running in serial, (mpirun -np 1), the adjoint derivative is expected to match the forward mode derivative (reference) by about eight significant digits. This is because the default tolerance for flow and adjoint computation is 1e-10. To get more digit match, reduce the above tolerances.
-
-**NOTE**: If running in parallel, the adjoint matches the reference by only six digits, this is because the meshWave function has not been differentiated in parallel. This will be fixed soon.
+**NOTE:** For most of the case, the adjoint matches the referene by about 6 digits. This is because (a) OpenFOAM uses bounding and limiting in the CFD, and the resulting discontinuity will degrade the adjoint derivative accuracy. (b) not all OpenFOAM functions are AD in parallel, e.g., the meshWave wall distance calculation. However, we do have a machine-precision accurate case with specific settings, refer to DASimpleFoamMachinePrecision.
 

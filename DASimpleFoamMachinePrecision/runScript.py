@@ -44,9 +44,11 @@ if args.task == "runForwardAD":
 daOptions = {
     "designSurfaces": ["wing"],
     "solverName": "DASimpleFoam",
-    "primalMinResTol": 1.0e-10,
+    "primalMinResTol": 1.0e-14,
     "adjJacobianOption": adjJacOpt,
     "useAD": {"mode": mode, "dvName": args.dvName, "seedIndex": args.seedIndex},
+    # don't bound nuTilda because it will degrade the adjoint derivative accuracy
+    "primalVarBounds": {"nuTildaMin": -1e16},
     "primalBC": {
         "U0": {"variable": "U", "patches": ["inout"], "value": [U0, 0.0, 0.0]},
         "p0": {"variable": "p", "patches": ["inout"], "value": [p0]},
@@ -96,7 +98,7 @@ daOptions = {
         },
     },
     "adjStateOrdering": "cell",
-    "adjEqnOption": {"gmresRelTol": 1.0e-10, "pcFillLevel": 1, "jacMatReOrdering": "natural"},
+    "adjEqnOption": {"gmresRelTol": 1.0e-14, "pcFillLevel": 1, "jacMatReOrdering": "natural"},
     "normalizeStates": {
         "U": U0,
         "p": U0 * U0 / 2.0,
