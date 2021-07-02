@@ -37,7 +37,6 @@ solvers
         relTol                         0.1;
         tolerance                      0;
         nSweeps                        1;
-maxIter 10;
     }
 }
 
