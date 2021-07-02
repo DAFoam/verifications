@@ -94,6 +94,17 @@ daOptions = {
                 "addToAdjoint": True,
             }
         },
+        "CMZ": {
+            "part1": {
+                "type": "moment",
+                "source": "patchToFace",
+                "patches": ["wing"],
+                "axis": [0.0, 0.0, 1.0],
+                "center": [0.25, 0.0, 0.05],
+                "scale": 1.0 / (0.5 * U0 * U0 * A0 * 1.0),
+                "addToAdjoint": True,
+            }
+        },
     },
     "adjStateOrdering": "cell",
     "adjEqnOption": {"gmresRelTol": 1.0e-10, "pcFillLevel": 1, "jacMatReOrdering": "natural"},
@@ -110,7 +121,7 @@ daOptions = {
 # mesh warping parameters, users need to manually specify the symmetry plane and their normals
 meshOptions = {
     "gridFile": os.getcwd(),
-    "fileType": "openfoam",
+    "fileType": "OpenFOAM",
     # point and normal for the symmetry plane
     "symmetryPlanes": [[[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]], [[0.0, 0.0, 0.1], [0.0, 0.0, 1.0]]],
 }
