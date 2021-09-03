@@ -29,6 +29,7 @@ solvers
         smoother                       GaussSeidel;
         relTol                         0.1;
         tolerance                      0;
+        maxIter                        50;
     }
     "(U|T|e|h|nuTilda|k|omega|epsilon)"
     {
@@ -37,6 +38,7 @@ solvers
         relTol                         0.1;
         tolerance                      0;
         nSweeps                        1;
+        maxIter                        10;
     }
 }
 

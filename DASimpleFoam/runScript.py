@@ -44,7 +44,7 @@ if args.task == "runForwardAD":
 daOptions = {
     "designSurfaces": ["wing"],
     "solverName": "DASimpleFoam",
-    "primalMinResTol": 1.0e-10,
+    "primalMinResTol": 1.0e-14,
     "adjJacobianOption": adjJacOpt,
     "useAD": {"mode": mode, "dvName": args.dvName, "seedIndex": args.seedIndex},
     "primalBC": {
@@ -107,14 +107,14 @@ daOptions = {
         },
     },
     "adjStateOrdering": "cell",
-    "adjEqnOption": {"gmresRelTol": 1.0e-10, "pcFillLevel": 1, "jacMatReOrdering": "natural"},
+    "adjEqnOption": {"gmresRelTol": 1.0e-14, "pcFillLevel": 1, "jacMatReOrdering": "rcm"},
     "normalizeStates": {
         "U": U0,
         "p": U0 * U0 / 2.0,
         "nuTilda": nuTilda0 * 10.0,
         "phi": 1.0,
     },
-    "adjPartDerivFDStep": {"State": 1e-6, "FFD": 1e-3},
+    "adjPartDerivFDStep": {"State": 1e-6},
     "designVar": {},
 }
 

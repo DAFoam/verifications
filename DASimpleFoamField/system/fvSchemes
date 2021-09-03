@@ -54,7 +54,11 @@ snGradSchemes
 
 wallDist
 {
-    method                                              meshWave;
+    // NOTE: we have to use meshWaveFrozen for wallDist, because the original meshWave
+    // function is not properly AD in OpenFOAM-v1812-AD. meshWaveFrozen computes the
+    // wall distancce in the beginning of the optimization and keeps it fixed during
+    // the optimization.
+    method                                              meshWaveFrozen;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
