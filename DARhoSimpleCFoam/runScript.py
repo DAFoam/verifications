@@ -27,12 +27,12 @@ args = parser.parse_args()
 gcomm = MPI.COMM_WORLD
 
 # Define the global parameters here
-U0 = 100.0
+U0 = 238.0
 p0 = 101325.0
 T0 = 300.0
 rho0 = 1.178
 nuTilda0 = 4.5e-5
-alpha0 = 3.0
+alpha0 = 2.7
 A0 = 0.1
 
 adjJacOpt = "JacobianFree"
@@ -45,7 +45,7 @@ if args.task == "runForwardAD":
 # Set the parameters for optimization
 daOptions = {
     "designSurfaces": ["wing"],
-    "solverName": "DARhoSimpleFoam",
+    "solverName": "DARhoSimpleCFoam",
     "primalMinResTol": 1.0e-14,
     "adjJacobianOption": adjJacOpt,
     "useAD": {"mode": mode, "dvName": args.dvName, "seedIndex": args.seedIndex},
