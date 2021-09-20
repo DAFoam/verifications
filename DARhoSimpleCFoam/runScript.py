@@ -21,6 +21,7 @@ import numpy as np
 # =============================================================================
 parser = argparse.ArgumentParser()
 parser.add_argument("--task", help="type of run to do", type=str, default="runAdjoint")
+parser.add_argument("--mode", help="AD mode: either reverse or forward", type=str, default="reverse")
 parser.add_argument("--dvName", help="design variable name for forward AD", type=str, default="shape")
 parser.add_argument("--seedIndex", help="which design variable index to set seeds", type=int, default=0)
 args = parser.parse_args()
@@ -35,20 +36,12 @@ nuTilda0 = 4.5e-5
 alpha0 = 2.7
 A0 = 0.1
 
-adjJacOpt = "JacobianFree"
-mode = "reverse"
-
-if args.task == "runForwardAD":
-    adjJacOpt = "JacobianFD"
-    mode = "forward"
-
 # Set the parameters for optimization
 daOptions = {
     "designSurfaces": ["wing"],
     "solverName": "DARhoSimpleCFoam",
     "primalMinResTol": 1.0e-14,
-    "adjJacobianOption": adjJacOpt,
-    "useAD": {"mode": mode, "dvName": args.dvName, "seedIndex": args.seedIndex},
+    "useAD": {"mode": args.mode},
     "primalBC": {
         "U0": {"variable": "U", "patches": ["inout"], "value": [U0, 0.0, 0.0]},
         "p0": {"variable": "p", "patches": ["inout"], "value": [p0]},
@@ -192,7 +185,7 @@ if args.task == "runAdjoint":
 
 elif args.task == "runForwardAD":
 
-    DASolver()
+    optFuncs.runForwardAD(args.dvName, args.seedIndex)
 
 elif args.task == "testAPI":
 
