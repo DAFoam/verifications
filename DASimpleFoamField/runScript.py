@@ -86,7 +86,7 @@ daOptions = {
 # mesh warping parameters, users need to manually specify the symmetry plane and their normals
 meshOptions = {
     "gridFile": os.getcwd(),
-    "fileType": "openfoam",
+    "fileType": "OpenFOAM",
     # point and normal for the symmetry plane
     "symmetryPlanes": [[[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]], [[0.0, 0.0, 0.1], [0.0, 0.0, 1.0]]],
 }
@@ -105,10 +105,10 @@ def alpha(val, geo):
     DASolver.updateDAOption()
 
 
-def betaSA(val, geo):
+def betaFieldInversion(val, geo):
     for idxI, v in enumerate(val):
-        DASolver.setFieldValue4GlobalCellI(b"betaSA", v, idxI)
-        DASolver.updateBoundaryConditions(b"betaSA", b"scalar")
+        DASolver.setFieldValue4GlobalCellI(b"betaFieldInversion", v, idxI)
+        DASolver.updateBoundaryConditions(b"betaFieldInversion", b"scalar")
 
 
 def alphaPorosity(val, geo):
@@ -127,8 +127,8 @@ DVGeo.addGlobalDV("alpha", value=[alpha0], func=alpha, lower=0.0, upper=10.0, sc
 daOptions["designVar"]["alpha"] = {"designVarType": "AOA", "patches": ["inout"], "flowAxis": "x", "normalAxis": "y"}
 # Beta
 beta0 = np.ones(nCells, dtype="d")
-DVGeo.addGlobalDV("beta", value=beta0, func=betaSA, lower=0.0, upper=10.0, scale=1.0)
-daOptions["designVar"]["beta"] = {"designVarType": "Field", "fieldName": "betaSA", "fieldType": "scalar"}
+DVGeo.addGlobalDV("beta", value=beta0, func=betaFieldInversion, lower=0.0, upper=10.0, scale=1.0)
+daOptions["designVar"]["beta"] = {"designVarType": "Field", "fieldName": "betaFieldInversion", "fieldType": "scalar"}
 # AlphaPorosity
 alphaPorosity0 = np.zeros(nCells, dtype="d")
 DVGeo.addGlobalDV("alphaPorosity", value=alphaPorosity0, func=alphaPorosity, lower=0, upper=100.0, scale=1.0)
