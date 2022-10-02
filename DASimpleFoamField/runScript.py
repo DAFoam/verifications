@@ -123,15 +123,15 @@ pts = DVGeo.getLocalIndex(iVol)
 indexList = pts[:, :, :].flatten()
 PS = geo_utils.PointSelect("list", indexList)
 # AOA
-DVGeo.addGeoDVGlobal("alpha", value=[alpha0], func=alpha, lower=0.0, upper=10.0, scale=1.0)
+DVGeo.addGlobalDV("alpha", value=[alpha0], func=alpha, lower=0.0, upper=10.0, scale=1.0)
 daOptions["designVar"]["alpha"] = {"designVarType": "AOA", "patches": ["inout"], "flowAxis": "x", "normalAxis": "y"}
 # Beta
 beta0 = np.ones(nCells, dtype="d")
-DVGeo.addGeoDVGlobal("beta", value=beta0, func=betaSA, lower=0.0, upper=10.0, scale=1.0)
+DVGeo.addGlobalDV("beta", value=beta0, func=betaSA, lower=0.0, upper=10.0, scale=1.0)
 daOptions["designVar"]["beta"] = {"designVarType": "Field", "fieldName": "betaSA", "fieldType": "scalar"}
 # AlphaPorosity
 alphaPorosity0 = np.zeros(nCells, dtype="d")
-DVGeo.addGeoDVGlobal("alphaPorosity", value=alphaPorosity0, func=alphaPorosity, lower=0, upper=100.0, scale=1.0)
+DVGeo.addGlobalDV("alphaPorosity", value=alphaPorosity0, func=alphaPorosity, lower=0, upper=100.0, scale=1.0)
 daOptions["designVar"]["alphaPorosity"] = {
     "designVarType": "Field",
     "fieldName": "alphaPorosity",

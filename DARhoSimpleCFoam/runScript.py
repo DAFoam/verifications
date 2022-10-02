@@ -140,13 +140,13 @@ pts = DVGeo.getLocalIndex(iVol)
 indexList = pts[:, :, :].flatten()
 PS = geo_utils.PointSelect("list", indexList)
 # shape
-DVGeo.addGeoDVLocal("shape", lower=-1.0, upper=1.0, axis="y", scale=1.0, pointSelect=PS)
+DVGeo.addLocalDV("shape", lower=-1.0, upper=1.0, axis="y", scale=1.0, pointSelect=PS)
 daOptions["designVar"]["shape"] = {"designVarType": "FFD"}
 # pitch
-DVGeo.addGeoDVGlobal("pitch", np.zeros(1), pitch, lower=-10.0, upper=10.0, scale=1.0)
+DVGeo.addGlobalDV("pitch", np.zeros(1), pitch, lower=-10.0, upper=10.0, scale=1.0)
 daOptions["designVar"]["pitch"] = {"designVarType": "FFD"}
 # AOA
-DVGeo.addGeoDVGlobal("alpha", value=[alpha0], func=alpha, lower=0.0, upper=10.0, scale=1.0)
+DVGeo.addGlobalDV("alpha", value=[alpha0], func=alpha, lower=0.0, upper=10.0, scale=1.0)
 daOptions["designVar"]["alpha"] = {"designVarType": "AOA", "patches": ["inout"], "flowAxis": "x", "normalAxis": "y"}
 # =============================================================================
 # DAFoam initialization

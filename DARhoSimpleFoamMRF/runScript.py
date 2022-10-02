@@ -121,21 +121,21 @@ DVGeo.addRefAxis("bodyAxis", xFraction=0.25, alignIndex="k")
 pts = DVGeo.getLocalIndex(0)
 indexList = pts[1:3, :, 1].flatten()
 PS = geo_utils.PointSelect("list", indexList)
-DVGeo.addGeoDVLocal("shapey", lower=-1.0, upper=1.0, axis="y", scale=1.0, pointSelect=PS)
-DVGeo.addGeoDVLocal("shapez", lower=-1.0, upper=1.0, axis="z", scale=1.0, pointSelect=PS)
+DVGeo.addLocalDV("shapey", lower=-1.0, upper=1.0, axis="y", scale=1.0, pointSelect=PS)
+DVGeo.addLocalDV("shapez", lower=-1.0, upper=1.0, axis="z", scale=1.0, pointSelect=PS)
 
 
 def MRF(val, geo):
     DASolver.setOption("primalBC", {"MRF": float(val[0])})
     DASolver.updateDAOption()
 
-DVGeo.addGeoDVGlobal("MRF", [MRF0], MRF, lower=-1000.0, upper=1000.0, scale=1.0)
+DVGeo.addGlobalDV("MRF", [MRF0], MRF, lower=-1000.0, upper=1000.0, scale=1.0)
 
 def U0(val, geo):
     inletU = float(val[0])
     DASolver.setOption("primalBC", {"U0": {"variable": "U", "patches": ["inlet"], "value": [0.0, 0.0, inletU]}})
     DASolver.updateDAOption()
-DVGeo.addGeoDVGlobal("U0", [UIn], U0, lower=-1000.0, upper=1000.0, scale=1.0)
+DVGeo.addGlobalDV("U0", [UIn], U0, lower=-1000.0, upper=1000.0, scale=1.0)
 
 # =============================================================================
 # DAFoam initialization
