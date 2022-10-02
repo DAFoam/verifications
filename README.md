@@ -1,5 +1,7 @@
 # verifications
 
+[![api_tests](https://github.com/DAFoam/verifications/actions/workflows/api_tests.yml/badge.svg)](https://github.com/DAFoam/verifications/actions/workflows/api_tests.yml)
+
 This repo contains configuration files to verify the accuracy of DAFoam adjoint derivative computation (DAFoam achieves **machine precision accurate adjoint**). Here we compared the derivatives between the forward mode AD (reference)and the JacobianFree adjoint method.
 
 Before running, we need to generate the mesh by running:
